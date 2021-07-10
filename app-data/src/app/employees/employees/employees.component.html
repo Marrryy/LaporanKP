@@ -1,0 +1,142 @@
+<div *ngIf="this.userService.user.name && this.userService.user.rank == 0; else elseBlock">
+  <div class="container my-3 employee">
+    <!-- <button type="button" class="btn btn-primary pull-right mx-2" data-bs-toggle="modal" data-bs-target="#ModalEmployee">
+      <i class='bx bx-plus-circle'></i> Add Employee
+    </button> -->
+    <h2 class="">List Employees</h2>  
+    <mat-grid-list cols="1">
+      <div class="list-row">
+        <div class="list-item d-flex align-middle">
+            <div class="row w-100">
+              <div class="col-3"><p>Photo</p></div>
+              <div class="col-3"><p>Name</p></div>
+              <div class="col-3"><p>Skill</p></div>
+              <div class="col-3"><p>Status</p></div>
+            </div>
+        </div><!-- list-item -->
+
+        <div *ngFor="let employee of employeesService.dataEmployee" class="list-item d-flex align-middle">
+          <a [routerLink]="['/employee', employee.id]" class="w-100 d-flex">
+            <div class="row w-100">    
+                
+              <div class="col-3"><div class="logo-div">
+                <img alt='img'  class="logo"  src='{{employee.photo ? employee.photo : "../../../../../assets/no-image.png"}}'>
+                <!-- {{showIMG(employee.photo)}} -->
+                <!-- <img alt='img' src=''> -->
+              </div></div>
+              <div class="col-3"><p>{{employee.name ? employee.name : '-'}}</p></div>
+              <div class="col-3" *ngIf="employee.skill.length > 0; else noSkill">
+                <div *ngFor="let emploSkill of employee.skill" class="badge badge-pill" [class]="'lvl'+emploSkill.lvl">
+                  {{emploSkill.name}}
+                </div></div>
+                <ng-template #noSkill>
+                  <div class="col-3"><p>-</p></div>
+              </ng-template>
+              <div class="col-3"><p>{{Avalaibility[employee.status]}}</p></div>
+            </div>
+          </a>
+        </div>
+
+      </div>
+    </mat-grid-list>  
+  </div>
+
+  <div class="modal fade" id="ModalEmployee">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Add Employee</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <form>
+            <div class="form-group">
+              <label>Employee Photo</label> <br>
+              <input class="form-control" type="file" name="photo" accept="image/*" max-file-size="1024" (change)="fileChange($event)">
+          </div>
+
+            <div class="form-group">
+                <label>Employee Name</label> <br>
+                <input class="form-control" type="text" name="name" [(ngModel)]="newEmployee.name">
+            </div>
+            
+            <div class="form-group">
+                <label>Profile Description</label><br>
+                <textarea class="form-control"  name="profileDesc" [(ngModel)]="newEmployee.profileDesc">
+                </textarea>
+            </div>
+        
+            <div class="form-group">
+              <label>Employee Email</label> <br>
+              <input class="form-control" type="text" name="email" [(ngModel)]="newEmployee.email">
+          </div>
+          
+          <div class="form-group">
+            <label>Employee Telephone</label> <br>
+            <input class="form-control" type="text" name="telephone" [(ngModel)]="newEmployee.telephone">
+        </div>  
+
+        <div class="form-group">
+          <label>Years of Experience</label><br>
+          <input class="form-control" type="number" name="yearsExp" [(ngModel)]="newEmployee.yearsExp">
+      </div>
+        
+            <div class="form-group">
+              <label>Skill</label>   
+              <div class="d-flex">
+                <input #newEmploSkill class="form-control" newEmploSkill.value=''>
+                <select class="form-control" #newEmploLvl newEmploLvl.value='' >
+                    <option *ngFor="let opt of Level; index as i;" [value]="i">{{opt}}</option>
+                </select>
+              <button (click)="insertItem('skill', newEmploSkill.value, newEmploLvl.value)" class="btn">
+                  <i class='bx bx-plus-circle'></i>  
+              </button>
+              </div>
+              <br>
+              <div *ngIf="newEmployee.skill.length > 0">
+                  <ul class="d-flex" *ngFor="let opt of newEmployee.skill; index as i;">
+                      <li [class]="'lvl'+opt.lvl">{{opt.name}}
+                      <button class="btn" (click)="removeItem('skill',i)">
+                          <i class="fa fa-minus" aria-hidden="true"></i> 
+                      </button>
+                      </li>
+                  </ul>
+              </div>
+          </div>
+
+
+            <div class="form-group">
+                <label>Last Education</label><br>
+                <input class="form-control" type="text" name="lastEducation" [(ngModel)]="newEmployee.lastEducation">
+            </div>
+
+            <div class="form-group">
+              <label>Salary Expectaction (in Rupiah)</label><br>
+              <input class="form-control" type="number" name="salaryExpect" [(ngModel)]="newEmployee.salaryExpect">
+            </div>
+        
+            <div class="form-group">
+                <label>Location of services</label><br>
+                <input class="form-control" type="text" name="location" [(ngModel)]="newEmployee.location">
+            </div>
+        
+            <div class="form-group">
+                <label>Status</label><br>
+                <select class="form-control" name="status" [(ngModel)]="newEmployee.status" >
+                  <option *ngFor="let opt of Avalaibility; index as i;" [value]="i">{{opt}}</option>
+              </select>
+          </div> 
+        </form>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+          <button type="button" class="btn btn-primary" data-bs-dismiss="modal" (click)="save()">Save changes</button>
+          <!-- <button type="button" class="btn btn-primary">Save changes</button> -->
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<ng-template #elseBlock>
+    <app-err-login></app-err-login>
+</ng-template>

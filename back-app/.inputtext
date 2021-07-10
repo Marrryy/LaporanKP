@@ -1,0 +1,46 @@
+user
+{
+      "name" : "Admin",
+      "rank" : "1",
+      "email" : "admin@unsada.id",
+      "password":"021"
+    }
+
+company 
+
+{
+      "name" : "A",
+      "address" : "Indo",
+      "email" : "Indo",
+      "telp":"021",
+    }
+
+
+Job
+ {
+      "idCompany" : "1",
+      "name" : "Developers",
+      "skillreq":"have a great talent",
+      "jobSpec":["angular", "sql"],
+      "requireLang":"english, jpn",
+      "seniorityLvl":1,
+      "jobDesc":"create good web",
+      "intendedLoc":"Indo",
+      "yearsExp":1,
+      "jobType":2,
+      "status" :1
+    }
+
+Employee
+{
+    "name":"pak",
+    "profileDesc":"hai",
+    "email" : "A@amail.cm",
+    "telp" : "021-2323232",
+    "yearsExp" : 3,
+    "skill": [{"name":"Angular", "lvl":2}, {"name":"Sql", "lvl":1}], 
+    "lastEducation": "UI-2020",
+    "language" : "Idn",
+    "location": "Jakarta",
+    "status": 1
+  }

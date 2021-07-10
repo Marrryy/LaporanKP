@@ -1,0 +1,156 @@
+<div *ngIf="this.userService.user; else elseBlock">
+    <div class="container my-3 employee">
+        <div *ngIf="checkOwnership()">
+            <!-- <button (click)="delete()" class="btn pull-right"><i class='bx bx-trash' ></i>Delete</button> -->
+            <button mat-button (click)="toggleEdit()" class="btn pull-right"><i class='bx bxs-edit' ></i>Edit</button>
+
+            <button *ngIf="employee.status == 1 && !edit" class="btn pull-right" (click)="downloadAsPDF()">Download</button>
+        </div>
+        <div *ngIf="!edit; else elseBlock">
+            <mat-grid-list *ngIf="employee" cols="1" id="pdfTable" #pdfTable>
+                <h2>{{employee.name }}</h2>
+                <hr>
+                <div class="row">
+                    <div class="col-4">                        
+                        <div class="photo-div" *ngIf="employee.photo">
+                            <!-- <img alt='img'  class="logo"  src='{{employee.photo ? employee.photo : "../../../../../assets/no-image.png"}}'> -->
+                            <img alt='img'  class="logo" width="300" src='{{employee.photo}}'>
+                          </div>        
+                        <h3>Profile Description</h3>
+                        <p>
+                            {{employee.profileDesc ? employee.profileDesc : ""}}
+                        </p>
+            
+                        <h3>Email</h3>
+                        <span *ngIf="employee.email"><a href="mailto:{{employee.email}}">{{employee.email}}</a></span>
+            
+                        <h3>Telephone</h3> 
+                        <span *ngIf="employee.telp"><a href="tel:{{employee.telp}}">{{employee.telp}}</a></span>
+            
+                    </div>
+                    <div class="col-4">        
+                        <h3>Skill</h3>
+                        <div *ngIf="employee.skill.length > 0">
+                            <p *ngFor="let emploSkill of employee.skill" [class]="'lvl'+emploSkill.lvl">
+                            {{emploSkill.name}}
+                            </p></div>
+
+                    </div>
+                    <div class="col-4">  
+                        
+                        <h3>Last Education</h3>
+                        <span>{{employee.lastEducation ? employee.lastEducation : ""}}</span>
+        
+                        <h3>Language</h3>
+                        <span>{{employee.language ? employee.language : ""}}</span>
+
+                        <h3>Location of services</h3>
+                        <span>{{employee.location ? employee.location : ""}}</span>
+
+                        <h3>Salary Expectaction</h3>
+                        <span>{{employee.salaryExpect ? moneyDots(employee.salaryExpect) : ""}}</span>
+
+                        <h3>Years of Experience</h3>
+                        <span>{{employee.yearsExp ? employee.yearsExp : ""}}</span>
+                        
+                        <h3>Status</h3>
+                        <span>{{employee.status?Avalaibility[employee.status]:Avalaibility[0]}}</span>
+                    </div>
+                </div>  
+            </mat-grid-list>  
+            </div>
+            
+            
+            <ng-template #elseBlock>
+                <form>
+                    <div class="form-group">
+                        <label>Employee Photo</label> <br>
+                        <input class="form-control" type="file" name="photo" accept="image/*" max-file-size="1024" (change)="fileChange($event)">
+                      </div>
+                    <div class="form-group">
+                        <label>Employee Name</label> <br>
+                        <input class="form-control" type="text" name="name" [(ngModel)]="employee.name">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label>Profile Description</label><br>
+                        <textarea class="form-control"  name="profileDesc" [(ngModel)]="employee.profileDesc">
+                        </textarea>
+                    </div>
+                
+                    <div class="form-group">
+                    <label>Employee Email</label> <br>
+                    <input class="form-control" type="text" name="email" [(ngModel)]="employee.email">
+                </div>
+                
+                <div class="form-group">
+                    <label>Employee Telephone</label> <br>
+                    <input class="form-control" type="text" name="telp" [(ngModel)]="employee.telp">
+                </div>  
+        
+            <div class="form-group">
+                <label>Skill</label>   
+                <div class="d-flex">
+                <input #newEmploSkill class="form-control" newEmploSkill.value=''>
+                <select class="form-control" #newEmploLvl newEmploLvl.value='' >
+                    <option *ngFor="let opt of Level; index as i;" [value]="i">{{opt}}</option>
+                </select>
+                <button (click)="insertItem('skill', newEmploSkill.value, newEmploLvl.value)" class="btn">
+                    <i class='bx bx-plus-circle'></i>  
+                </button>
+                </div>
+                <br>
+                <div *ngIf="employee.skill.length > 0">
+                    <ul class="d-flex" *ngFor="let opt of employee.skill; index as i;">
+                        <li [class]="'lvl'+opt.lvl">{{opt.name}}
+                        <button class="btn" (click)="removeItem('skill',i)">
+                            <i class="bx bx-minus-circle" aria-hidden="true"></i> 
+                        </button>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+        
+        
+                    <div class="form-group">
+                        <label>Last Education</label><br>
+                        <input class="form-control" type="text" name="lastEducation" [(ngModel)]="employee.lastEducation">
+                    </div>
+
+                    <div class="form-group">
+                        <label>Language</label><br>
+                        <input class="form-control" type="text" name="language" [(ngModel)]="employee.language">
+                    </div>
+
+
+                    <div class="form-group">
+                        <label>Location of services</label><br>
+                        <input class="form-control" type="text" name="location" [(ngModel)]="employee.location">
+                    </div>
+
+                    <div class="form-group">
+                        <label>Salary Expectaction (in Rupiah)</label><br>
+                        <input class="form-control" type="number" name="salaryExpect" [(ngModel)]="employee.salaryExpect">
+                    </div>
+                
+                    <div class="form-group">
+                        <label>Years of Experience</label><br>
+                        <input class="form-control" type="number" name="yearsExp" [(ngModel)]="employee.yearsExp">
+                    </div>
+                
+                    <div class="form-group">
+                        <label>Status</label><br>
+                        <select class="form-control" name="status" [(ngModel)]="employee.status" >
+                            <option *ngFor="let opt of Avalaibility; index as i;" [value]="i">{{opt}}</option>
+                        </select>
+        
+                </div> 
+                </form>
+            </ng-template>
+    </div>
+</div>
+  
+<ng-template #elseBlock> 
+  <app-err-login></app-err-login>
+</ng-template>

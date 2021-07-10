@@ -1,0 +1,81 @@
+<div *ngIf="this.userService.user; else elseBlock">
+    <div class="container my-3 interview">
+        <div *ngIf="this.userService.user.rank == 0">
+            <button mat-button (click)="toggleEdit()" class="btn pull-right"><i class='bx bxs-edit' ></i>Edit</button>
+        </div> 
+        <div *ngIf="this.userService.user.rank == 1 && !interview.acceptCompany && interview.status != 0">
+            <button mat-button (click)="acceptComp()" class="btn pull-right">Accept</button>
+            <button mat-button (click)="declineComp()" class="btn pull-right">Decline</button>
+        </div>
+        <div *ngIf="this.userService.user.rank == 2 && !interview.acceptEmployee && interview.status != 0">
+            <button mat-button (click)="acceptEmplo()" class="btn pull-right">Accept</button>
+            <button mat-button (click)="declineEmplo()" class="btn pull-right">Decline</button>
+        </div>
+        <div *ngIf="!edit; else elseBlock">
+            <mat-grid-list *ngIf="interview" cols="1">
+                <h2>Interview 
+                    <a [routerLink]="['/job', interview.idJob]">
+                        {{this.companiesService.findDataJobById(interview.idJob).name }}
+                    </a>
+                </h2>
+                <hr>
+                <div class="row">
+                    <div class="col-6">
+                        <h3>Company</h3>
+                        <sub>{{Accept[interview.acceptCompany]}}</sub>
+                        <p> 
+                            {{this.companiesService.findDataCompanyByID(this.companiesService.findDataJobById(interview.idJob).idCompany).name }}
+                        </p>
+                    
+                        <h3>Employee</h3>
+                        <sub>{{Accept[interview.acceptEmployee]}}</sub>
+                        <p>
+                            <a [routerLink]="['/employee', interview.idEmployee]">
+                                {{this.employeesService.findDataEmployeeById(interview.idEmployee).name }}
+                            </a>
+                        </p>
+                    </div>
+                    <div class="col-6">        
+                        
+                        <h3>Date</h3>
+                        <p>{{interview.date}}</p>
+                    
+                        <h3>Note</h3>
+                        <p>{{interview.note}}</p>
+                        
+                        <h3>Status</h3>
+                        <p>{{Avalaibility[interview.status]}}</p>
+                        
+                    </div>
+                </div>  
+            </mat-grid-list>  
+            </div>
+            
+            
+            <ng-template #elseBlock>
+                <form>
+                    <div class="form-group">
+                        <label>Date</label> <br>
+                        <input class="form-control" type="datetime-local" name="date" [(ngModel)]="interview.date" [min]="today | date:'yyyy-MM-ddThh:mm'">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label>Note</label><br>
+                        <textarea class="form-control"  name="note" [(ngModel)]="interview.note">
+                        </textarea>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Status</label><br>
+                        <select class="form-control" name="status" [(ngModel)]="interview.status" >
+                            <option *ngFor="let opt of Avalaibility; index as i;" [value]="i">{{opt}}</option>
+                        </select>
+                </div> 
+                </form>
+            </ng-template>
+    </div>
+</div>
+<ng-template #elseBlock>
+    
+    <app-err-login></app-err-login>
+</ng-template>

@@ -1,0 +1,72 @@
+<div *ngIf="this.userService.user && this.userService.user.rank == 0; else elseBlock">
+    <div class="container my-3 user">
+  
+      <button type="button" class="btn btn-border pull-right mx-2" data-bs-toggle="modal" data-bs-target="#ModalUser">
+        <i class='bx bx-plus-circle'></i> Add User
+      </button>
+  
+      <h2 class="">List User</h2>  
+      <mat-grid-list cols="1">
+        <div class="list-row">
+          <div class="list-item d-flex align-middle">
+              <div class="row w-100">
+                <div class="col-4"><p>Name</p></div>
+                <div class="col-4"><p>Email</p></div>
+                <div class="col-4"><p>Rank</p></div>
+              </div>
+          </div><!-- list-item -->
+  
+          <div *ngFor="let user of userService.dataUser" class="list-item d-flex align-middle">
+              <div class="row w-100">
+                <div class="col-4"><p>{{user.name ? user.name : '-'}}</p></div>
+                <div class="col-4"><p>{{user.email ? user.email : '-'}}</p></div>
+                <div class="col-4"><p>{{Rank[user.rank]}}</p></div>
+              </div>
+          </div>
+  
+        </div>
+      </mat-grid-list>  
+    </div>
+  
+    <div class="modal fade" id="ModalUser">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLabel">Add User</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body">
+            <form>
+              <div class="form-group">
+                <label>Name</label> <br>
+                <input class="form-control" type="text" name="userName" [(ngModel)]="newUser.name">
+              </div>
+          
+              <div class="form-group">
+                <label>Email</label><br>
+                <input class="form-control" type="email" name="userEmail" [(ngModel)]="newUser.email">
+              </div>
+              
+              <div class="form-group">
+                <label>Rank</label> <br>
+                <!-- <input class="form-control" type="number" min="0" max="2" name="userRank" [(ngModel)]="newUser.rank"> -->
+                <select class="form-control" name="status" [(ngModel)]="newUser.rank" >
+                  <option *ngFor="let opt of Rank; index as i;" [value]="i">{{opt}}</option>
+                </select>
+              </div>
+            </form>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+            <button type="button" class="btn btn-primary"  data-bs-dismiss="modal" (click)="saveUser()" >Save changes</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  
+  </div>
+  
+  
+  <ng-template #elseBlock> 
+    <app-err-login></app-err-login>
+  </ng-template>

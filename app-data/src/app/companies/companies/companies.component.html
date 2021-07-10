@@ -1,0 +1,239 @@
+<div *ngIf="this.userService.user.name; else elseBlock">
+  <div class="container my-3 company">
+
+    <button type="button" class="btn btn-border pull-right mx-2" data-bs-toggle="modal" data-bs-target="#ModalJob">
+      <i class='bx bx-plus-circle'></i> Add Job
+    </button>
+    <!-- <div *ngIf="!thisCompany">
+      <button type="button" class="btn btn-border pull-right mx-2" data-bs-toggle="modal" data-bs-target="#ModalCompany">
+        <i class='bx bx-plus-circle'></i> Add Company
+      </button>
+    </div> -->
+
+    <h2 class="">List Jobs</h2>  
+    <mat-grid-list cols="1">
+      <div class="list-row">
+        <div class="list-item d-flex align-middle">
+            <div class="row w-100">
+              <div class="col-2"><p>Logo</p></div>
+              <div class="col-2"><p>Company Name</p></div>
+              <div class="col-2"><p>Job name</p></div>
+              <div class="col-2"><p>Job Specializations</p></div>
+              <div class="col-2"><p>Status</p></div>
+              <div class="col-2"><p>Job Type</p></div>
+            </div>
+        </div><!-- list-item -->
+
+        <div *ngIf="!companiesService.customJob; else useCustomJob">
+          <div *ngFor="let job of companiesService.dataJob" class="list-item d-flex align-middle">
+            <a [routerLink]="['/job', job.id]" class="w-100 d-flex">
+              <div class="row w-100">            
+                <div class="col-2"><div class="logo-div">
+                  <img alt='img' class="logo" src='{{this.companiesService.findDataCompanyByID(job.idCompany).photo ? this.companiesService.findDataCompanyByID(job.idCompany).photo : "../../../../../assets/no-image.png"}}'>
+                </div></div>
+                <div class="col-2" [class]="'lvl'+job.seniorityLvl"><p>{{ this.companiesService.findDataCompanyByID(job.idCompany).name }}</p></div>
+                <div class="col-2"><p>{{job.name ? job.name : '-'}}</p></div>
+                <div class="col-2"><p>{{job.jobSpec.length > 0 ? breakArray(job.jobSpec) : '-'}}</p></div>
+                <div class="col-2"><p>{{Avalaibility[job.status]}}</p></div>
+                <div class="col-2"><p>{{JobType[job.jobType]}}</p></div>
+              </div>
+            </a>
+          </div>
+        </div>
+        <ng-template #useCustomJob>
+          <div *ngFor="let job of companiesService.customJob" class="list-item d-flex align-middle">
+            <a [routerLink]="['/job', job.id]" class="w-100 d-flex">
+              <div class="row w-100">            
+                <div class="col-2"><div class="logo-div">
+                  <img alt='img' class="logo" src='{{this.companiesService.findDataCompanyByID(job.idCompany).photo ? this.companiesService.findDataCompanyByID(job.idCompany).photo : "../../../../../assets/no-image.png"}}'>
+                </div></div>
+                <div class="col-2" [class]="'lvl'+job.seniorityLvl"><p>{{ this.companiesService.findDataCompanyByID(job.idCompany).name }}</p></div>
+                <div class="col-2"><p>{{job.name ? job.name : '-'}}</p></div>
+                <div class="col-2"><p>{{job.jobSpec.length > 0 ? breakArray(job.jobSpec) : '-'}}</p></div>
+                <div class="col-2"><p>{{Avalaibility[job.status]}}</p></div>
+                <div class="col-2"><p>{{JobType[job.jobType]}}</p></div>
+              </div>
+            </a>
+          </div>
+        </ng-template>
+
+      </div>
+    </mat-grid-list>  
+  </div>
+
+  <div class="modal fade" id="ModalCompany">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Add Company</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <form>
+            <div class="form-group">
+              <label>Company Photo</label> <br>
+              <input class="form-control" type="file" name="photo" accept="image/*" max-file-size="1024" (change)="fileChange($event)">
+          </div>
+
+            <div class="form-group">
+              <label>Company Name</label> <br>
+              <input class="form-control" type="text" name="companyName" [(ngModel)]="newCompany.name">
+            </div>
+        
+            <div class="form-group">
+              <label>Company Address</label><br>
+              <input class="form-control" type="text" name="companyAddress" [(ngModel)]="newCompany.address">
+            </div>
+            
+            <div class="form-group">
+              <label>Company Email</label> <br>
+              <input class="form-control" type="text" name="companyEmail" [(ngModel)]="newCompany.email">
+              </div>
+
+            <div class="form-group">
+              <label>Company Telephone</label> <br>
+              <input class="form-control" type="text" name="companyTelephone" [(ngModel)]="newCompany.telephone">
+            </div>
+          </form>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+          <button type="button" class="btn btn-primary"  data-bs-dismiss="modal" (click)="saveComp()" >Save changes</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="modal fade" id="ModalJob">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Add Job</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <form>
+            <div class="form-group">
+                <label>Company Name</label> <br>
+                <div *ngIf="!thisCompany; else oneChoice">
+                  <select class="form-control" name="nameCompany" [(ngModel)]="newJob.idCompany" >
+                    <option *ngFor="let opt of companiesService.dataCompanies" [value]="opt.id">{{opt.name}}</option>
+                  </select>
+                </div>
+
+                <ng-template #oneChoice>
+                  <select class="form-control" name="nameCompany" [(ngModel)]="newJob.idCompany" >
+                    <option [value]="thisCompany.id">{{thisCompany.name}}</option>
+                  </select>
+                </ng-template>
+            </div>
+            <div class="form-group">
+                <label>Job Name</label><br>
+                <input class="form-control" type="text" name="name" [(ngModel)]="newJob.name">
+            </div>
+            
+            <div class="form-group">
+                <label>Skill Required</label><br>
+                <textarea class="form-control"  name="skillreq" [(ngModel)]="newJob.skillreq">
+                </textarea>
+            </div>
+        
+            <div class="form-group">
+              <label>Job Specializations </label>   
+              <div class="d-flex">
+                <input #jobSpecial class="form-control" jobSpecial.value=''
+              (keyup.enter)="insertItem('job', jobSpecial.value)"
+              (blur)="insertItem('job', jobSpecial.value); jobSpecial.value='' "
+              >
+              <button (click)="insertItem('job', jobSpecial.value)" class="btn">
+                  <i class='bx bx-plus-circle'></i>  
+              </button>
+              </div>
+              <br> 
+              <div *ngIf="newJob.jobSpec.length > 0">
+                  <ul class="d-flex" *ngFor="let opt of newJob.jobSpec; index as i;">
+                      <li>{{opt}}
+                      <button class="btn" (click)="removeItem('job',i)">
+                          <i class="fa fa-minus" aria-hidden="true"></i> 
+                      </button>
+                      </li>
+                  </ul>
+              </div>
+          </div>
+
+            <!-- <div class="form-group">
+                <label>Job Specializations </label>    
+                <button (click)="addItem('job')" class="btn">
+                    <i class="fa fa-plus" aria-hidden="true"></i> 
+                </button>
+                <br>
+                <div *ngIf="Job.length > 0">
+                    <div class="array-loop" *ngFor="let opt of Job; index as i;">
+                        <input class="form-control" (change)="changeItem($event,'job',i)">
+                        <button class="btn" (click)="removeItem('job',i)">
+                            <i class="fa fa-minus" aria-hidden="true"></i> 
+                        </button>
+                    </div>
+                </div>
+            </div>
+         -->
+            <div class="form-group">
+              <label>Require Language</label>   
+              <input class="form-control" type="text" name="requireLang" [(ngModel)]="newJob.requireLang">
+            </div>
+            <div class="form-group">
+              <label>Salary Range</label>   
+              <input class="form-control" type="text" name="salaryRange" [(ngModel)]="newJob.salaryRange">
+            </div>
+
+        
+            <div class="form-group">
+                <label>Seniority Level</label><br>
+                <select class="form-control" name="seniority" [(ngModel)]="newJob.seniorityLvl" >
+                <option *ngFor="let opt of Level; index as i;" [value]="i">{{opt}}</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label>Job Description</label><br>
+                <textarea class="form-control"  name="jobDesc" [(ngModel)]="newJob.jobDesc">
+                </textarea>
+            </div>
+        
+            <div class="form-group">
+                <label>Intended Location of services</label><br>
+                <input class="form-control" type="text" name="intendedLoc" [(ngModel)]="newJob.intendedLoc">
+            </div>
+        
+            <div class="form-group">
+                <label>Years of Experience</label><br>
+                <input class="form-control" type="number" name="yearExp" [(ngModel)]="newJob.yearExp">
+            </div>
+        
+            <div class="form-group">
+                <label>Job Type</label><br>
+                <select class="form-control" name="jobType" [(ngModel)]="newJob.jobType" >
+                  <option *ngFor="let opt of JobType; index as i;" [value]="i">{{opt}}</option>
+                </select>
+            </div>
+        
+            <div class="form-group">
+                <label>Status</label><br>
+                <select class="form-control" name="status" [(ngModel)]="newJob.status" >
+                    <option *ngFor="let opt of Avalaibility; index as i;" [value]="i">{{opt}}</option>
+                </select>
+          </div> 
+        </form>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+          <button type="button" class="btn btn-primary" data-bs-dismiss="modal" (click)="saveJob()">Save changes</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+
+<ng-template #elseBlock>
+  <app-err-login></app-err-login>
+</ng-template>

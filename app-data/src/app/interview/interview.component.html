@@ -1,0 +1,59 @@
+<div *ngIf="this.userService.user; else elseBlock">
+    <div class="container my-3 interview">
+      <h2 class="">List Interview</h2>  
+      <mat-grid-list cols="1">
+        <div class="list-row">
+          <div class="list-item d-flex align-middle">
+              <div class="row w-100">
+                <div class="col-2"><p>Job Name</p></div>
+                <div class="col-2"><p>Company Name</p></div>
+                <div class="col-2"><p>Employee name</p></div>
+                <div class="col-2"><p>Date</p></div>
+                <div class="col-2"><p>Status</p></div>
+                <div class="col-1"><p>Company</p></div>
+                <div class="col-1"><p>Employee</p></div>
+              </div>
+          </div><!-- list-item -->
+
+          <div *ngIf="!interviewsService.customInter; else useCustomInter">
+            <div *ngFor="let interview of interviewsService.dataInterviewActive" class="list-item d-flex align-middle">
+              <a [routerLink]="['/interview', interview.id]" class="w-100 d-flex">
+                <div class="row w-100">            
+                  <div class="col-2"><p>{{ this.companiesService.findDataJobById(interview.idJob).name }}</p></div>
+                  <div class="col-2"><p>{{ this.companiesService.findDataCompanyByID(this.companiesService.findDataJobById(interview.idJob).idCompany).name }}</p></div>
+                  <div class="col-2"><p>{{ this.employeesService.findDataEmployeeById(interview.idEmployee).name }}</p></div>
+                  <div class="col-2"><p>{{interview.date}}</p></div>
+                  <div class="col-2"><p>{{Avalaibility[interview.status]}}</p></div>
+                  <div class="col-1"><p>{{Accept[interview.acceptCompany]}}</p></div>
+                  <div class="col-1"><p>{{Accept[interview.acceptEmployee]}}</p></div>
+                </div>
+              </a>
+            </div>
+          </div>
+
+          <ng-template #useCustomInter>
+            <div *ngFor="let interview of interviewsService.dataInterviewActive" class="list-item d-flex align-middle">
+              <a [routerLink]="['/interview', interview.id]" class="w-100 d-flex">
+                <div class="row w-100">            
+                  <div class="col-2"><p>{{ this.companiesService.findDataJobById(interview.idJob).name }}</p></div>
+                  <div class="col-2"><p>{{ this.companiesService.findDataCompanyByID(this.companiesService.findDataJobById(interview.idJob).idCompany).name }}</p></div>
+                  <div class="col-2"><p>{{ this.employeesService.findDataEmployeeById(interview.idEmployee).name }}</p></div>
+                  <div class="col-2"><p>{{interview.date}}</p></div>
+                  <div class="col-2"><p>{{Avalaibility[interview.status]}}</p></div>
+                  <div class="col-1"><p>{{Accept[interview.acceptCompany]}}</p></div>
+                  <div class="col-1"><p>{{Accept[interview.acceptEmployee]}}</p></div>
+
+                </div>
+              </a>
+            </div>          </ng-template>
+      </div>
+      </mat-grid-list>  
+    </div>
+  
+  </div>
+  
+  
+  <ng-template #elseBlock>
+     
+    <app-err-login></app-err-login>
+  </ng-template>

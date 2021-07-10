@@ -1,0 +1,56 @@
+<main *ngIf="!this.userService.user || !this.userService.user.rank; else elseBlock" class="form-signin">
+  <section id="contact" class="contact">
+    <div class="container">
+
+      <div class="section-title" data-aos="zoom-in">
+        <h2>Please log in</h2>
+       </div>
+
+      <div class="row my-2">
+        <div class="col-lg-12 my-2 mt-lg-0" data-aos="fade-left">
+
+          <form autocomplete="off" class="php-email-form">
+            <div class="row">
+              <div class="col-md-12 form-group">
+                <label for="inputEmail" class="visually-hidden">Email address</label>
+                <input type="text" class="form-control" id="inputEmail"
+                required placeholder="Email address" autofocus autocomplete="off"
+                [(ngModel)]="email" name="email">
+              </div>
+              <div class="col-md-12 form-group mt-3 mt-md-0">
+                <label for="inputPsd" class="visually-hidden">Password</label>
+                <input type="password" class="form-control" id="inputPsd"
+                required placeholder="Password"  autocomplete="off"
+                [(ngModel)]="password" name="psd">
+              </div>
+              <div class="col-md-12 form-group my-3 mt-md-0">
+                <div class="checkbox mb-3">
+                    <input (click)='toggleRemember()' type="checkbox" > 
+                    <span class="rm">Remember me</span>
+                </div>
+              </div>
+            </div>
+            <div class="text-center">
+              <button type="submit"
+              (click)="login()">Log in</button>          
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </section><!-- End Contact Section -->
+
+</main>
+
+<ng-template #elseBlock>
+  <section class="py-5 text-center container">
+    <div class="row py-lg-5">
+      <div class="col-lg-6 col-md-8 mx-auto">
+        <p class="lead text-muted">You already Log in</p>
+        <p>
+            <a routerLink="/" class="btn btn-secondary my-2">Home</a>
+        </p>
+      </div>
+    </div>
+  </section>
+</ng-template>

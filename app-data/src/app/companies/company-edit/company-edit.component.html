@@ -1,0 +1,40 @@
+<div *ngIf="this.userService.user.name; else elseBlock">
+  <div class="container my-3 company">
+      <h3>Edit {{thisCompanies.name}}</h3>
+      
+  <form>
+      <div class="form-group">
+        <label>Company Photo</label> <br>
+        <input class="form-control" type="file" name="photo" accept="image/*" max-file-size="1024" (change)="fileChange($event)">
+      </div>
+      
+      <div class="form-group">
+          <label>Company Name</label> <br>
+          <input class="form-control" type="text" name="companyName" [(ngModel)]="thisCompanies.name">
+        </div>
+    
+        <div class="form-group">
+          <label>Company Address</label><br>
+          <input class="form-control" type="text" name="companyAddress" [(ngModel)]="thisCompanies.address">
+        </div>
+        
+        <div class="form-group">
+          <label>Company Email</label> <br>
+          <input class="form-control" type="text" name="companyEmail" [(ngModel)]="thisCompanies.email">
+          </div>
+
+        <div class="form-group">
+          <label>Company Telephone</label> <br>
+          <input class="form-control" type="text" name="companyTelephone" [(ngModel)]="thisCompanies.telp">
+        </div>
+
+    <div class="form-group">
+      <button type="button" class="btn btn-primary" (click)="save()">Save changes</button>
+    </div> 
+
+  </form>
+  </div>
+</div>
+<ng-template #elseBlock>
+    <app-err-login></app-err-login>
+  </ng-template>

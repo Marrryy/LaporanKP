@@ -1,0 +1,43 @@
+<div *ngIf="this.userService.user; else elseBlock">
+
+    <div class="container my-3 user">
+        <button mat-button (click)="toggleEdit()" class="btn pull-right">Change Password</button>
+            <div *ngIf="!edit; else elseBlock">
+            <mat-grid-list *ngIf="user" cols="1">
+                <h2>{{user.name}}</h2>
+                <hr>
+                <div class="row">
+                    <div class="col-10">
+                        <h3>Email</h3>
+                        <p>
+                            {{user.email}}
+                        </p>
+            
+                        <h3>Rank</h3>
+                        <p>{{Rank[user.rank]}}</p>
+                    </div>
+                </div>  
+            </mat-grid-list>  
+            </div>
+            
+            
+            <ng-template #elseBlock>
+            <form>
+                <div class="form-group">
+                    <label>New Password</label><br>
+                    <input class="form-control" type="password" name="pass" [(ngModel)]="newPass.password">
+                </div>
+                <div class="form-group">
+                    <label>Comfirm New Password</label>   
+                    <input class="form-control" type="password" name="re" [(ngModel)]="newPass.re">
+                </div>
+                <div class="form-group">
+                    <button (click)="change()" class="btn btn-primary">Change Password</button>
+                </div>
+            </form>
+            </ng-template>
+    </div>
+</div>
+<ng-template #elseBlock>
+    <app-err-login></app-err-login>
+</ng-template>

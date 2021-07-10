@@ -1,0 +1,93 @@
+<!-- ======= Header ======= -->
+<header id="header" class="d-flex align-items-center">
+  <div class="container d-flex justify-content-between">
+
+    <div class="logo">
+      <a routerLink="/" class="navbar-brand d-flex align-items-center">
+        <strong>{{title}}</strong>
+      </a>
+    </div>
+
+    <nav id="navbar" class="navbar">
+    <ul *ngIf="this.userService.user && this.userService.user.rank == 0; else elseFirst">
+      <li><a routerLink="/companies" class="nav-link scrollto company">Jobs</a></li>
+      <li><a routerLink="/employees" class="nav-link scrollto employee">Employees</a></li>
+      <li><a routerLink="/interview" class="nav-link scrollto interview">Interview</a></li>
+      <li><a routerLink="/history" class="nav-link scrollto interview">History</a></li>
+      <li><a routerLink="/users" class="nav-link scrollto user">Users</a></li>
+      <li><a routerLink="/compare" class="nav-link scrollto compare">Compare</a></li>
+      <!-- <li><a (click)="refresh()" class="nav-link scrollto"><i class='bx bx-refresh' ></i></a></li> -->
+      <li><a (click)="logout()" class="nav-link scrollto">Logout</a></li>
+    </ul>
+    <ng-template #elseFirst>
+      <ul *ngIf="this.userService.user && this.userService.user.rank == 1; else elseSecond">
+        <li><a routerLink="/companies" class="nav-link scrollto company">Jobs</a></li>
+        <li><a routerLink="/interview" class="nav-link scrollto interview">Interview</a></li>
+        <li><a routerLink="/history" class="nav-link scrollto interview">History</a></li>
+        <li><a routerLink="/company/edit/0" class="nav-link scrollto company">Edit Company</a></li>
+        <li><a routerLink="/user" class="nav-link scrollto">User</a></li>
+        <!-- <li><a (click)="refresh()" class="nav-link scrollto"><i class='bx bx-refresh' ></i></a></li> -->
+        <li><a (click)="logout()" class="nav-link scrollto">Logout</a></li>
+      </ul>
+    </ng-template>     
+
+    <ng-template #elseSecond>
+      <ul *ngIf="this.userService.user && this.userService.user.rank == 2; else elseLast">
+        <li><a routerLink="/employee/0" class="nav-link scrollto employee">Edit Profile</a></li>
+        <li><a routerLink="/interview" class="nav-link scrollto interview">Interview</a></li>
+        <li><a routerLink="/history" class="nav-link scrollto interview">History</a></li>
+        <li><a routerLink="/user/" class="nav-link scrollto">User</a></li>
+        <!-- <li><a (click)="refresh()" class="nav-link scrollto"><i class='bx bx-refresh' ></i></a></li> -->
+        <li><a (click)="logout()" class="nav-link scrollto">Logout</a></li>
+      </ul>    </ng-template>     
+
+    <ng-template #elseLast>
+      <ul>
+        <li><a routerLink="/login" class="nav-link scrollto">
+          Login
+        </a></li>
+      </ul>
+    </ng-template>     
+
+      <i class="bi bi-list mobile-nav-toggle"></i>
+    </nav><!-- .navbar -->
+
+  </div>
+</header><!-- End Header -->
+
+<div class="content" role="main">
+  <router-outlet></router-outlet>
+</div>
+
+
+
+  <!-- ======= Footer ======= -->
+  <footer id="footer">
+
+    <div class="footer-top">
+
+      <div class="container">
+
+        <div class="row  justify-content-center">
+          <div class="col-lg-6">
+            <h3>We help you access the world.</h3>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="container footer-bottom clearfix">
+      <div class="copyright">
+        &copy; Copyright <strong><span>Remember</span></strong>. All Rights Reserved
+      </div>
+      <div class="credits">
+        <!-- All the links in the footer should remain intact. -->
+        <!-- You can delete the links only if you purchased the pro version. -->
+        <!-- Licensing information: https://bootstrapmade.com/license/ -->
+        <!-- Purchase the pro version with working PHP/AJAX contact form: https://bootstrapmade.com/remember-free-multipurpose-bootstrap-template/ -->
+        Designed by <a href="https://bootstrapmade.com/">BootstrapMade</a>
+      </div>
+    </div>
+  </footer><!-- End Footer -->
+
+  <a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>

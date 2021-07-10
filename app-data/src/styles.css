@@ -1,0 +1,147 @@
+/* You can add global styles to this file, and also import other style files */
+
+html, body { height: 100%; }
+body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+.cdk-overlay-pane{
+
+    width: 100%;
+}
+
+ul{
+    list-style-type: none;
+  }
+.list-item > a, .card > a {
+  text-decoration: none !important;
+  color: #000;
+}
+.lvl0, .lvl1, .lvl2, .lvl3 {
+  background: #fff; 
+}
+.lvl0 {
+  color: #007d00; 
+}
+
+.lvl1 {
+  color: #dcdc4a; 
+  }
+
+.lvl2 {
+  color: #ffa500; 
+  }
+
+.lvl3 {
+  color: #ed3833; 
+  }
+
+
+.badge-color{
+  display: inline-flex;
+  align-content: center;
+  float: right;
+}
+.span-circle{
+  display: inline-flex;
+  height: 20px;
+  width: 20px;
+  border-radius: 50%;
+}
+/* div.lvl0.span-circle, div.lvl1.span-circle, div.lvl2.span-circle, div.lvl3.span-circle {
+  color: #fff; 
+} */
+.badge-color >div{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 0px 5px;
+}
+.badge-color span:nth-child(2){
+  margin: 0px 5px;
+}
+.lvl0 .span-circle {
+  background-color: #007d00; 
+}
+
+.lvl1 .span-circle {
+  background-color: #dcdc4a; 
+  }
+
+.lvl2 .span-circle {
+  background-color: #ffa500; 
+  }
+
+.lvl3 .span-circle {
+  background-color: #ed3833; 
+  }
+
+  .logo-div{
+    background-color: white;
+    border: 1px solid;
+    height: 125px;
+    overflow: hidden;
+  }
+  .photo-div{
+    background-color: white;
+    height: 300px;
+    overflow: hidden;
+  }
+  .logo{
+    width: 100%;
+    object-fit: contain;
+    height: inherit;
+  }
+
+
+  .company {
+    color:#2b6684;
+  }
+  .btn-company {
+    background-color:#2b6684;
+    color:#fff
+  }
+  .employee {
+    color:#5d80b6
+  }
+  .btn-employee {
+    background-color:#5d80b6;
+    color:#fff
+  }
+  .interview {
+    color:#824404
+  }
+  .btn-interview {
+    background-color:#824404;
+    color:#fff
+  }
+
+  .user {
+    color:#2b4046
+  }
+  .btn-user {
+    background-color:#2b4046;
+    color:#fff
+  }
+  .compare {
+    color: #46899b;
+  }
+  .btn-compare {
+    background-color:#46899b;
+    color:#fff
+  }
+
+
+.pull-right{
+  float:right
+}
+
+.content {
+  min-height: 350px;
+}
+
+.content .container { 
+  margin-bottom: 100px;
+}
+
+.btn-border{
+  border: 1px solid #2b4046;
+  border-radius: 15px;
+}

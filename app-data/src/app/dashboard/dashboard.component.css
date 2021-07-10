@@ -1,0 +1,21 @@
+/* .bg {
+    background-image: url(../../assets/people-min.png) ;
+     background-image: url(assets/people-min.png) ; 
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-color: rgba(255,255,255,0.8);
+    background-blend-mode: lighten;
+    width: 100%;
+    min-height: 93vh;
+} */
+
+.container {
+    margin-bottom: 10px !important;
+}
+.pricing .col-lg-4{
+
+    display: table;
+}
+.pricing .box{
+    display: table-cell;
+}

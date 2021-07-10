@@ -1,0 +1,96 @@
+<h2 mat-dialog-title>Add New Company</h2>
+<div mat-dialog-content class="mat-typography w-50">
+  <button mat-raised-button matDialogClose (click)="print()">Print</button>
+
+  <form>
+    <div class="form-group">
+        <label>Nama Perusahaan</label> <br>
+        <select class="form-control" name="namaPerusahaan" [(ngModel)]="new.namaPerusahaan" >
+            <option *ngFor="let opt of DummyCompany" [value]="opt">{{opt}}</option>
+        </select>
+    </div>
+    <div class="form-group">
+        <label>Nama Pekerjaan</label><br>
+        <input class="form-control" type="text" name="namaPekerjaan" [(ngModel)]="new.namaPekerjaan">
+    </div>
+    
+    <div class="form-group">
+        <label>Skill Required</label><br>
+        <textarea class="form-control"  name="skillReq" [(ngModel)]="new.skillReq">
+        </textarea>
+    </div>
+
+    <div class="form-group">
+        <label>Job Specializations</label>    
+        <button (click)="addItem('job')">
+            <i class="fa fa-plus" aria-hidden="true"></i> 
+        </button>
+        <br>
+        <div *ngIf="Job.length > 0">
+            <div *ngFor="let opt of Job; index as i;">
+                <input class="form-control" (change)="changeItem($event,'job',i)">
+                <button (click)="removeItem('job',i)">
+                    <i class="fa fa-minus" aria-hidden="true"></i> 
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <div class="form-group">
+        
+        <label>Require Language</label>
+        <button (click)="addItem('language')">
+            <i class="fa fa-plus" aria-hidden="true"></i> 
+        </button>
+        <br>
+        <div *ngFor="let opt of Language; index as i;">
+            <input class="form-control" (change)="changeItem($event,'language',i)">
+            <button (click)="removeItem('language',i)">
+                <i class="fa fa-minus" aria-hidden="true"></i> 
+            </button>
+        </div>
+    </div>
+
+
+    <div class="form-group">
+        <label>Seniority Level</label><br>
+        <select class="form-control" name="seniority" [(ngModel)]="new.seniorityLvl" >
+        <option *ngFor="let opt of Level" [value]="opt.key">{{opt.value}}</option>
+        </select>
+    </div>
+    <div class="form-group">
+        <label>Job Description</label><br>
+        <textarea class="form-control"  name="jobDesc" [(ngModel)]="new.jobDesc">
+        </textarea>
+    </div>
+
+    <div class="form-group">
+        <label>Intended Location of services</label><br>
+        <input class="form-control" type="text" name="locationService" [(ngModel)]="new.locationService">
+    </div>
+
+    <div class="form-group">
+        <label>Years of Experience</label><br>
+        <input class="form-control" type="number" name="yearExp" [(ngModel)]="new.yearExp">
+    </div>
+
+    <div class="form-group">
+        <label>Job Type</label><br>
+        <select class="form-control" name="jobType" [(ngModel)]="new.jobType" >
+          <option *ngFor="let opt of JobType" [value]="opt.key">{{opt.value}}</option>
+        </select>
+    </div>
+
+    <div class="form-group">
+        <label>Status</label><br>
+        <select class="form-control" name="status" [(ngModel)]="new.status" >
+            <option *ngFor="let opt of Avalaibility" [value]="opt.key">{{opt.value}}</option>
+        </select>
+  </div> 
+</form>
+</div>
+<div mat-dialog-actions>
+  <!-- <button mat-dialog-close>Close</button> -->
+  <button mat-raised-button matDialogClose (click)="print()">Print</button>
+  <!-- <button (click)="close()">Close</button> -->
+</div>

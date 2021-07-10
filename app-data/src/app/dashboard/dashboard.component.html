@@ -1,0 +1,355 @@
+<section id="hero">
+  <div class="hero-container" data-aos="fade-up">
+    <h1>Welcome to {{ title }} app!</h1>
+  </div>
+</section><!-- End Hero -->
+
+
+<section class="py-5 text-center container">
+ 
+  <div *ngIf="this.userService.user && this.userService.user.rank == 0; else elseFirst">
+          <!-- ======= Services Section ======= -->
+    <section id="services" class="services">
+      <div class="container">
+
+        <div class="section-title" data-aos="zoom-in">
+          <h3>Hi <span>{{this.userService.user.name}}</span></h3>
+        </div>
+
+        <div class="row">
+          <div class="col-lg-4 col-md-6 align-items-stretch">
+            <div class="icon-box" data-aos="zoom-in">
+              <div class="icon"><i class='bx bx-buildings' ></i></div>
+              <h4>
+                <a routerLink="/companies">Companies</a>
+              </h4>
+              <p>See data list of Job Companies</p>
+            </div>
+          </div>
+
+          <div class="col-lg-4 col-md-6 align-items-stretch mt-4 mt-md-0">
+            <div class="icon-box" data-aos="zoom-in" data-aos-delay="100">
+              <div class="icon"><i class='bx bxs-face-mask'></i></div>
+              <h4>
+                  <a routerLink="/employees" >Employees</a>
+              </h4>
+              <p>See data list of Employees</p>
+            </div>
+          </div>
+
+          <div class="col-lg-4 col-md-6 align-items-stretch mt-4 mt-lg-0">
+            <div class="icon-box" data-aos="zoom-in" data-aos-delay="200">
+              <div class="icon"><i class="bx bx-file"></i></div>
+              <h4>
+                <a routerLink="/interview">Interview</a>
+              </h4>
+              <p>See data list of Pending and Avalaible Interview's Status</p>
+            </div>
+          </div>
+
+          <div class="col-lg-4 col-md-6 align-items-stretch mt-4 mt-lg-0">
+            <div class="icon-box" data-aos="zoom-in" data-aos-delay="200">
+              <div class="icon"><i class='bx bx-history'></i></div>
+              <h4>
+                <a routerLink="/history">History</a>
+              </h4>
+              <p>See data history of Interview</p>
+            </div>
+          </div>
+
+          <div class="col-lg-4 col-md-6 align-items-stretch mt-4 mt-lg-0">
+            <div class="icon-box" data-aos="zoom-in" data-aos-delay="200">
+              <div class="icon"><i class='bx bxs-user-detail' ></i></div>
+              <h4>
+                <a routerLink="/users">Users</a>
+              </h4>
+              <p>See data list of Users</p>
+            </div>
+          </div>
+
+          <div class="col-lg-4 col-md-6 align-items-stretch mt-4 mt-lg-0">
+            <div class="icon-box" data-aos="zoom-in" data-aos-delay="200">
+              <div class="icon"><i class='bx bxs-user-account'></i></div>
+              <h4>
+                <a routerLink="/user" >User</a>
+              </h4>
+              <p>Edit Your Account</p>
+            </div>
+          </div>
+
+          <div class="col-lg-4 col-md-6 align-items-stretch mt-4 mt-lg-0">
+            <div class="icon-box" data-aos="zoom-in" data-aos-delay="200">
+              <div class="icon"><i class='bx bx-git-compare' ></i></div>
+              <h4>
+                <a routerLink="/compare">Compare</a>
+              </h4>
+              <p>Compare Data</p>
+            </div>
+          </div>
+
+        </div>
+
+      </div>
+    </section><!-- End Services Section -->
+        </div>
+
+        <ng-template #elseFirst>
+          <div *ngIf="this.userService.user && this.userService.user.rank == 1; else elseSecond">
+
+            <section id="services" class="services">
+              <div class="container">
+        
+                <div class="section-title" data-aos="zoom-in">
+                  <h3>Hi Company <span>{{this.userService.user.name}}</span></h3>
+                </div>
+        
+                <div class="row">
+                  <div class="col-lg-4 col-md-6 align-items-stretch">
+                    <div class="icon-box" data-aos="zoom-in">
+                      <div class="icon"><i class='bx bx-buildings' ></i></div>
+                      <h4>
+                        <a routerLink="/companies">Companies</a>
+                      </h4>
+                      <p>See data list of Job Companies</p>
+                    </div>
+                  </div>
+        
+                  <div class="col-lg-4 col-md-6 align-items-stretch mt-4 mt-lg-0">
+                    <div class="icon-box" data-aos="zoom-in" data-aos-delay="200">
+                      <div class="icon"><i class="bx bx-file"></i></div>
+                      <h4>
+                        <a routerLink="/interview">Interview</a>
+                      </h4>
+                      <p>See data list of Pending and Avalaible Interview's Status</p>
+                    </div>
+                  </div>
+
+                  <div class="col-lg-4 col-md-6 align-items-stretch mt-4 mt-lg-0">
+                    <div class="icon-box" data-aos="zoom-in" data-aos-delay="200">
+                      <div class="icon"><i class='bx bx-history'></i></div>
+                      <h4>
+                        <a routerLink="/history">History</a>
+                      </h4>
+                      <p>See data history of Interview</p>
+                    </div>
+                  </div>
+
+                  <div class="col-lg-4 col-md-6 align-items-stretch mt-4 mt-lg-0">
+                    <div class="icon-box" data-aos="zoom-in" data-aos-delay="200">
+                      <div class="icon"><i class='bx bxs-building'></i></div>
+                      <h4>
+                        <a routerLink="/company/edit/0" >Profile</a>
+                      </h4>
+                      <p>Edit Your Company Profile</p>
+                    </div>
+                  </div>
+        
+                  <div class="col-lg-4 col-md-6 align-items-stretch mt-4 mt-lg-0">
+                    <div class="icon-box" data-aos="zoom-in" data-aos-delay="200">
+                      <div class="icon"><i class='bx bxs-user-account'></i></div>
+                      <h4>
+                        <a routerLink="/user" >User</a>
+                      </h4>
+                      <p>Edit Your Account</p>
+                    </div>
+                  </div>
+                </div>
+        
+              </div>
+            </section><!-- End Services Section -->
+          </div>
+          
+        </ng-template>     
+    
+        <ng-template #elseSecond>
+          <div *ngIf="this.userService.user && this.userService.user.rank == 2; else elseLast">
+             <!-- <div>{{this.getRecommendation()}}</div> -->
+                  <!-- ======= Services Section ======= -->
+            <section id="services" class="services">
+              <div class="container">
+
+                <div class="section-title" data-aos="zoom-in">
+                  <h3>Hi Employees <span>{{this.userService.user.name}}</span></h3>
+                </div>
+
+                <div class="row">
+
+                  <div class="col-lg-4 col-md-6 align-items-stretch mt-4 mt-md-0">
+                    <div class="icon-box" data-aos="zoom-in" data-aos-delay="100">
+                      <div class="icon"><i class='bx bxs-face-mask'></i></div>
+                      <h4>
+                        <a routerLink="/employee/0" >Employee</a>
+                      </h4>
+                      <p>Edit Your Profile</p>
+                    </div>
+                  </div>
+
+                  <div class="col-lg-4 col-md-6 align-items-stretch mt-4 mt-lg-0">
+                    <div class="icon-box" data-aos="zoom-in" data-aos-delay="200">
+                      <div class="icon"><i class="bx bx-file"></i></div>
+                      <h4>
+                        <a routerLink="/interview">Interview</a>
+                      </h4>
+                      <p>See data list of Pending and Avalaible Interview's Status</p>
+                    </div>
+                  </div>
+
+                  <div class="col-lg-4 col-md-6 align-items-stretch mt-4 mt-lg-0">
+                    <div class="icon-box" data-aos="zoom-in" data-aos-delay="200">
+                      <div class="icon"><i class='bx bx-history'></i></div>
+                      <h4>
+                        <a routerLink="/history">History</a>
+                      </h4>
+                      <p>See data history of Interview</p>
+                    </div>
+                  </div>
+
+                  <div class="col-lg-4 col-md-6 align-items-stretch mt-4 mt-lg-0">
+                    <div class="icon-box" data-aos="zoom-in" data-aos-delay="200">
+                      <div class="icon"><i class='bx bxs-user-account'></i></div>
+                      <h4>
+                        <a routerLink="/user" >User</a>
+                      </h4>
+                      <p>Edit Your Account</p>
+                    </div>
+                  </div>
+                </div>
+
+              </div>
+            </section><!-- End Services Section -->
+
+             <!-- ======= Pricing Section ======= -->
+            <section id="pricing" class="pricing" *ngIf="recommendations.length > 0">
+              <div class="container">
+
+                <div class="section-title" data-aos="zoom-in">
+                  <h2>
+                    <h3><span>Recommendations</span></h3>
+                  </h2>
+                  <p>Job that same with one of your skills</p>
+                </div>
+
+                <div class="row">
+
+                  <div *ngFor="let recommend of recommendations" class="col-lg-4 col-md-6">
+                    <div class="box" data-aos="zoom-in" data-aos-delay="200">
+                      <h3>{{this.companiesService.findDataCompanyByID(recommend.idCompany).name}}</h3>
+                      <h4>{{recommend.name}}</h4>
+                      <h4><span>Skill : </span></h4>
+                      <ul>
+                        <li *ngFor="let skill of recommend.jobSpec">{{skill}}</li>
+                      </ul>
+                      <div class="btn-wrap">
+                        <a [routerLink]="'/job/'+recommend.id" class="btn-buy">See more</a>
+                      </div>
+                    </div>
+                  </div>
+
+                </div>
+
+              </div>
+            </section><!-- End Pricing Section -->
+
+         </div>    
+        </ng-template>     
+    
+        <ng-template #elseLast>
+          <main id="main">
+
+            <!-- ======= Why Us Section ======= -->
+            <section id="why-us" class="why-us">
+              <div class="container">
+        
+                <div class="section-title" data-aos="zoom-in">
+                  <h2>Why Us</h2>
+                  <h3>Why you should <span>choose us</span>?</h3>
+                  <p>Since 2011, Wonder has been helping companies build and manage software development teams around the globe.
+                    </p>
+                </div>
+        
+                <div class="row">
+        
+                  <div class="col-lg-6">
+                    <div class="box" data-aos="fade-up">
+                      <h4>Talent Solutions</h4>
+                      <p>Helping you access talent around the world to power and grow
+                        your business. From software developers to accountants,
+                        long-term or short-term, our Customer Success Managers will
+                        create a customized solution to meet your business needs.</p>
+                    </div>
+                  </div>
+        
+        
+                  <div class="col-lg-6" data-aos="fade-up" data-aos-delay="200">
+                    <div class="box">
+                      <h4> Technology Solutions</h4>
+                      <p>With teams of experienced software developers around the world,
+                        our technology solutions teams specialize in building highly
+                        customized software systems to power your enterprise and
+                        productivity needs.
+                        
+                        </p>
+                    </div>
+                  </div>
+        
+                </div>
+        
+              </div>
+            </section><!-- End Why Us Section -->
+                
+            <!-- ======= Cta Section ======= -->
+            <section id="cta" class="cta">
+              <div class="container" data-aos="zoom-in">
+        
+                <div class="text-center">
+                  <h3>Have a Question ?</h3>
+                  <a class="cta-btn" href="mailto:messaging@wonderlabs.io">Contact Wonder</a>
+                </div>
+        
+              </div>
+            </section><!-- End Cta Section -->
+        
+            <!-- ======= Contact Section ======= -->
+            <section id="contact" class="contact">
+              <div class="container">
+        
+                <div class="section-title" data-aos="zoom-in">
+                  <h2>Register</h2>
+                  <p>Employer join now!</p>
+                 </div>
+        
+                <div class="row my-2">
+                  <div class="col-lg-12 my-2 mt-lg-0" data-aos="fade-left">
+        
+                    <form class="php-email-form" autocomplete="off">
+                      <div class="row justify-content-center">
+                        <div class="col-md-7 form-group">
+                          <input type="text" name="name" class="form-control" id="name" placeholder="Your Name" required [(ngModel)]="newUser.name">
+                        </div>
+                        <div class="col-md-7 form-group mt-3 mt-md-0">
+                          <input type="email" class="form-control" name="email" id="email" placeholder="Your Email" required [(ngModel)]="newUser.email">
+                        </div>
+                        <div class="col-md-7 form-group mt-3 mt-md-0">
+                          <input type="password" class="form-control" name="psd" id="psd" placeholder="Your password" required [(ngModel)]="newUser.password">
+                        </div>
+                        <div class="col-md-6 form-group my-3 mt-md-0">    
+                        </div>
+                      </div>
+                      <div class="text-center"><button type="submit" (click)="saveUser()">Register Now</button></div>
+                    </form>
+                  </div>
+        
+                </div>
+
+                <div class="my-3" data-aos="zoom-in">
+                  <a class="cta-btn" routerLink="/login">
+                    or Login
+                  </a>
+                 </div>
+        
+              </div>
+            </section><!-- End Contact Section -->
+        
+          </main><!-- End #main -->
+        </ng-template>     
+</section>

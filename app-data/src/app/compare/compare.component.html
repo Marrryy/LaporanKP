@@ -1,0 +1,170 @@
+
+<div *ngIf="this.userService.user && this.userService.user.rank == 0; else elseBlock">
+	<div class="container my-3 ">
+		<button type="button" class="btn btn-border pull-right mx-2" data-bs-toggle="modal" data-bs-target="#ModalInterview" [disabled]=" !curEmplo || !curJob">
+			<i class='bx bx-plus-circle'></i> Add Interview
+		</button>
+		<button type="button" class="btn btn-border pull-right mx-2" (click)="resetAll()">
+			<i class='bx bx-refresh' ></i> Reset
+		</button>
+			<div class="search compare">
+					<h3>Search</h3>
+					<sub>You can select the subject and input the value</sub>
+					<div class="form-group">
+							<select class="form-control" (change)="changeSearchTitle($event.target.value)" name="changeTitle">
+									<option *ngFor="let x of termTitle" [value]="x">{{x}}</option>
+							</select>
+							<input type="text" class="form-control" 
+							[(ngModel)]="term" 
+							name="search" (change)="findMatch($event.target.value)">
+					</div>
+			</div>
+
+			<div class="badge-color">
+				<div *ngFor="let l of Level;index as i;" [class]="'lvl'+i">
+					<span class="span-circle"></span>
+					<span>
+						{{l}}
+					</span>
+				</div>
+			</div>
+
+			<div class="form-check">
+					<input class="form-check-input" type="checkbox" id="ava" [(ngModel)]="statusBox" (change)="findMatch()">
+					<label class="form-check-label" for="ava">
+					Only select Avalaible
+					</label>
+			</div>
+
+			<div class="row">
+					<div class="col-6">
+							<h4>Select Job : </h4>
+							<select class="form-control" [(ngModel)]="curJobSelect" (change)="setCurrentJob($event.target.value)" name="curJob">
+								<option value="-">-</option>
+								<option *ngFor="let j of filtJob" [value]="j.id">{{j.name}}</option>
+							</select>
+								<div class="card"  *ngIf="curJob">
+									<a [routerLink]="['/job', curJob.id]">
+									<div class="card-header" [class]="'lvl'+curJob.seniorityLvl">										
+											{{curJob.name}} - {{curComp.name}}
+									</div>
+									</a>
+									<div class="card-body">
+										<div>
+											<h5>Job Specializations</h5>
+											<div *ngIf="curJob.jobSpec.length > 0" [style]="'height:'+24*skillHeight+'px'">
+												<ul>
+														<li *ngFor="let opt of curJob.jobSpec; index as i;">{{opt}}</li>
+												</ul>
+											</div>
+										</div>
+										<div>
+											<h5>Require Language</h5>
+											<p>{{curJob.requireLang}}</p>
+										</div>
+										<div>
+											<h5>Status</h5>
+											<p>{{Avalaibility[curJob.status]}}</p>
+										</div>
+										<div>
+											<h5>Years of Experience</h5>
+											<p>{{curJob.yearsExp}}</p>			
+										</div>
+										<div>	
+											<h5>Salary Range</h5>
+											<span>{{curJob.salaryRange}}</span>
+										</div>
+										<div>
+											<h5>Intended Location of services</h5>
+											<p>{{curJob.intendedLoc}}</p>
+										</div>
+									</div>
+								</div>
+					</div>
+					<div class="col-6">
+						<h4>Select Employee : </h4>
+						<select  class="form-control" [(ngModel)]="curEmploSelect" (change)="setCurrentEmployee($event.target.value)" name="curEmplo">
+							<option value="-">-</option>
+							<option *ngFor="let e of filtEmplo" [value]="e.id">{{e.name}}</option>
+						</select>
+						<div class="card" *ngIf="curEmplo">
+							<a [routerLink]="['/employee', curEmplo.id]">
+								<div class="card-header">
+									{{curEmplo.name}}
+								</div>
+							</a>
+							<div class="card-body">
+								<div>
+									<h5>Skill</h5>
+                   					   <div *ngIf="curEmplo.skill.length > 0" [style]="'height:'+24*skillHeight+'px'">
+											<ul>
+												<li *ngFor="let emploSkill of curEmplo.skill" [class]="'lvl'+emploSkill.lvl">{{emploSkill.name}}</li>
+											</ul>
+										</div>
+								</div>
+								<div>
+									<h5>Language</h5>
+									<p>{{curEmplo.language}}</p>
+								</div>
+								<div>
+									<h5>Status</h5>
+									<p>{{Avalaibility[curEmplo.status]}}</p>
+								</div>
+								<div>
+									<h5>Years of Experience</h5>
+									<p>{{curEmplo.yearsExp}}</p>
+								</div>
+								<div >
+									<h5>Salary Expectaction</h5>
+									<span>RP.{{moneyDots(curEmplo.salaryExpect)}}</span>
+								</div>
+								<div>
+									<h5>Location of services</h5>
+									<p>{{curEmplo.location}}</p>
+								</div>
+							</div>
+						</div>
+					</div>
+			</div>
+	</div>
+
+
+	<div class="modal fade" id="ModalInterview">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Add Interview</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+			<div *ngIf="curJob && curEmplo">
+				Add Interview on Job {{curJob.name}} with Employee {{curEmplo.name}}?
+			</div>
+          <form>
+            <div class="form-group">
+                <label>Date</label> <br>
+                <input class="form-control" type="datetime-local" name="date" [(ngModel)]="newInterview.date" [min]="today | date:'yyyy-MM-ddThh:mm'">
+            </div>
+            
+            <div class="form-group">
+                <label>Notes</label><br>
+                <textarea class="form-control"  name="note" [(ngModel)]="newInterview.note">
+                </textarea>
+            </div>
+        </form>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+          <button type="button" class="btn btn-primary" data-bs-dismiss="modal" [disabled]="!newInterview.date" (click)="save()">Save changes</button>
+          <!-- <button type="button" class="btn btn-primary">Save changes</button> -->
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<ng-template #elseBlock>
+   
+  <app-err-login></app-err-login>
+</ng-template>
