@@ -1,2 +1,12 @@
 Nama saya Mary Franklin dengan NIM 2018230074, Mahasiswa Unsada. 
 Hasil kerja praktik dengan Membangun Aplikasi Tentang Pengelolaan Data Berbasis Web Untuk Tim Talent Hunter.
+
+
+app-data - Angular
+back-app - Node.Js
+
+Cara menjalankan :
+1. Export database
+2. Npm Install pada folder app-data dan back-app
+3. Jalankan back-app dengan cara "npm start"
+4. Jalankan app-data dengan cara "ng serve"
